@@ -6,6 +6,9 @@
 @* using: cria um contexto *@
 @using (Html.BeginForm())
 {
+    <!-- Gera token e vai embutir no formulário-->
+    <!-- O token é usado somente uma vez e é enviado no header também-->
+    @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <h4>Informe os dados do aluno:</h4>
@@ -46,13 +49,13 @@
                 @Html.CheckBoxFor(model => model.Ativo, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
+        
+        <!-- Declaração de PartialView -->
+        <!-- Se a partialView estiver dentro de uma pasta específica, vai funcionar só lá, mas se for
+            global, deve estar na pastra Shared-->
+        <!-- A partial aceita Model -->
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Enviar" class="btn btn-default" />
-            </div>
-        </div>
-
+        @Html.Partial("_SubmissaoForm")
     </div>
 }
 

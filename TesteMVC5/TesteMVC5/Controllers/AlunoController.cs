@@ -39,6 +39,7 @@ namespace TesteMVC5.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken] //Valida o token recebido da View
         [Route("novo-aluno")]
         public ActionResult NovoAluno(Aluno aluno)
         {
