@@ -131,9 +131,11 @@
     <Compile Include="Controllers\ParametrosController.cs" />
     <Compile Include="Controllers\TesteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Data\AppDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Aluno.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
