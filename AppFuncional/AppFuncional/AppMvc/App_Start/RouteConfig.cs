@@ -13,6 +13,9 @@ namespace AppMvc
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //Habilita as rotas por atributos
+            routes.MapMvcAttributeRoutes();
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
