@@ -4,6 +4,15 @@
     ViewBag.Title = "Gestão de Aluno";
 }
 
+@*Para escrever código C# na view, usa-se arroba*@
+@if (TempData["Mensagem"] != null)
+{
+<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">x</button>
+    <h3>@TempData["Mensagem"].ToString()</h3> @*Converter TempData*@
+</div>
+}
+
 <h2>Gestão de Aluno</h2>
 
 <div>
@@ -27,26 +36,27 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CPF)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ativo)
-        </td>
-        <td>
-            <a href="@Url.Action("Edit", "Alunos", new { id=item.Id })" class="btn btn-warning">Editar</a>
-            <a href="@Url.Action("Details", "Alunos", new { id=item.Id })" class="btn btn-primary">Detalhes</a>
-            <a href="@Url.Action("Delete", "Alunos", new { id=item.Id })" class="btn btn-danger">Excluir</a>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CPF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ativo)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "Alunos", new { id=item.Id })" class="btn btn-warning">Editar</a>
+                <a href="@Url.Action("Details", "Alunos", new { id=item.Id })" class="btn btn-primary">Detalhes</a>
+                <a href="@Url.Action("Delete", "Alunos", new { id=item.Id })" class="btn btn-danger">Excluir</a>
+            </td>
+        </tr>
+    }
 
 </table>

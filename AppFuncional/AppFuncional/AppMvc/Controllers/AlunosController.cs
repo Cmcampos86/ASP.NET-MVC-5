@@ -50,6 +50,11 @@ namespace AppMvc.Controllers
                 aluno.DataMatricula = DateTime.Now;
                 db.Alunos.Add(aluno);
                 await db.SaveChangesAsync();
+
+                //TempData: persiste a informação quando ocorre um redirect ou request. Ela finaliza quando é lida
+
+                TempData["Mensagem"] = "Aluno cadastrado com sucesso";
+
                 return RedirectToAction("Index");
             }
 
@@ -66,6 +71,9 @@ namespace AppMvc.Controllers
             {
                 return HttpNotFound();
             }
+
+            //ViewBag: Passa uma informação de uma controller para uma View
+            ViewBag.Mensagem = "Não esqueça de  esta ação é irreversível";
 
             return View(aluno);
         }
