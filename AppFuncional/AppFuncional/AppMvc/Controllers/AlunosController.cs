@@ -1,17 +1,28 @@
 ﻿using System.Data.Entity;
 using System.Threading.Tasks;
-using System.Net;
 using System.Web.Mvc;
 using AppMvc.Models;
 using System;
 
 namespace AppMvc.Controllers
 {
+    //Filters:
+    //OutputCache: Faz o cahce de um output da Controller
+    //ValidateInPut: Desliga a validação dos requests e permite input de dados perigosos
+    //Authorize: Restring uma Action a apenas usuários autorizados ou roles
+    //ValidateAntiForgeryToken: Previne ataques de Cross-Site Request Forgery
+    //HandleError: Caputura todos os erros e possibilita a escolha de uma View para exibição de erros
+
+    //Só vai permitir acesso quando for fazer o login
+    //O Authorize pode ser uzado em um método específico
+    [Authorize]
     public class AlunosController : Controller
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
         [HttpGet]
+        [AllowAnonymous]//AllowAnonymous trata a excessão do Autorize
+        [OutputCache(Duration = 60)] //Utilizado para persistir em cache a informação de acordo com o tempo (Duration). Essa funcionalidade é interessante para dados imutáveis.
         [Route("listar-alunos")]
         public async Task<ActionResult> Index()
         {
@@ -41,6 +52,8 @@ namespace AppMvc.Controllers
 
         [HttpPost]
         [Route("novo-aluno")]
+        [HandleError(ExceptionType = typeof(NullReferenceException), View = "Erro")]//Se ocorrer algum erro específico(NullReferenceException como no exemplo), vai redirecionar para a view Erro (específica)
+        [ValidateInput(false)]//Se injetar um javascript perigoso, ele vai aceitar. Por padrão o asp.net proteje por padrão os scripts perigosos
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,Nome,Email,CPF,Descricao,Ativo")] Aluno aluno)
         {
