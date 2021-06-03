@@ -10,6 +10,7 @@ using AppMvc.Models;
 
 namespace AppMvc.Controllers
 {
+    //Gestão do usuário já logado
     [Authorize]
     public class ManageController : Controller
     {
