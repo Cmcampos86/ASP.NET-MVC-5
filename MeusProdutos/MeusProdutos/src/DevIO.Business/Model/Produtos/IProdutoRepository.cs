@@ -1,10 +1,9 @@
 ﻿using DevIO.Business.Core.Data;
-using DevIO.Business.Model.Produtos;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DevIO.Business.Model.Fornecedores
+namespace DevIO.Business.Model.Produtos
 {
     public interface IProdutoRepository : IRepository<Produto>
     {

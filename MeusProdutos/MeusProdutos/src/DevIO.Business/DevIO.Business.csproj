@@ -40,7 +40,7 @@
     <Compile Include="Model\Fornecedores\Fornecedor.cs" />
     <Compile Include="Model\Fornecedores\IEnderecoRepository.cs" />
     <Compile Include="Model\Fornecedores\IFornecedorRepository.cs" />
-    <Compile Include="Model\Fornecedores\IProdutoRepository.cs" />
+    <Compile Include="Model\Produtos\IProdutoRepository.cs" />
     <Compile Include="Model\Fornecedores\TipoFornecedor.cs" />
     <Compile Include="Model\Produtos\Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
