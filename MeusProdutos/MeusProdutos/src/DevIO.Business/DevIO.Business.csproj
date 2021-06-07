@@ -31,19 +31,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentValidation, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentValidation.10.2.3\lib\netstandard2.0\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Data\IRepository.cs" />
     <Compile Include="Core\Models\Entity.cs" />
+    <Compile Include="Core\Validations\Documentos\ValidacaoDocs.cs" />
     <Compile Include="Model\Fornecedores\Endereco.cs" />
     <Compile Include="Model\Fornecedores\Fornecedor.cs" />
     <Compile Include="Model\Fornecedores\IEnderecoRepository.cs" />
     <Compile Include="Model\Fornecedores\IFornecedorRepository.cs" />
+    <Compile Include="Model\Fornecedores\Validations\EnderecoValidation.cs" />
+    <Compile Include="Model\Fornecedores\Validations\FornecedorValidation.cs" />
     <Compile Include="Model\Produtos\IProdutoRepository.cs" />
     <Compile Include="Model\Fornecedores\TipoFornecedor.cs" />
     <Compile Include="Model\Produtos\Produto.cs" />
+    <Compile Include="Model\Produtos\Validations\ProdutoValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

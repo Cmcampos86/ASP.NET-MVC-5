@@ -8,6 +8,7 @@ namespace DevIO.Infra.Data.Context
 {
     public class MeuDbContext : DbContext
     {
+        //Instalar o EF
         public MeuDbContext() : base("DefaultConnection")
         {
             Configuration.ProxyCreationEnabled = false;
