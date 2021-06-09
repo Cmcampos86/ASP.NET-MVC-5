@@ -1,5 +1,4 @@
 ﻿using DevIO.Business.Core.Models;
-using DevIO.Business.Model.Fornecedores.Validations;
 using DevIO.Business.Model.Produtos;
 using System.Collections.Generic;
 
