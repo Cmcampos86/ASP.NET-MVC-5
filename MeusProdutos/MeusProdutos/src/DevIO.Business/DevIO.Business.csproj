@@ -39,11 +39,14 @@
   <ItemGroup>
     <Compile Include="Core\Data\IRepository.cs" />
     <Compile Include="Core\Models\Entity.cs" />
+    <Compile Include="Core\Services\BaseService.cs" />
     <Compile Include="Core\Validations\Documentos\ValidacaoDocs.cs" />
     <Compile Include="Model\Fornecedores\Endereco.cs" />
     <Compile Include="Model\Fornecedores\Fornecedor.cs" />
     <Compile Include="Model\Fornecedores\IEnderecoRepository.cs" />
     <Compile Include="Model\Fornecedores\IFornecedorRepository.cs" />
+    <Compile Include="Model\Fornecedores\Services\FornecedorService.cs" />
+    <Compile Include="Model\Fornecedores\Services\IFornecedorService.cs" />
     <Compile Include="Model\Fornecedores\Validations\EnderecoValidation.cs" />
     <Compile Include="Model\Fornecedores\Validations\FornecedorValidation.cs" />
     <Compile Include="Model\Produtos\IProdutoRepository.cs" />
