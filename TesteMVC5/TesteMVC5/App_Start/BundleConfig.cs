@@ -13,8 +13,9 @@ namespace TesteMVC5
             //Pode ser usado máscara (asterísco)
             //O bundles serve para minificar também
             //Pasta Content é tudo em um só e os bundles são os separados minificados desde que esteja ativado esse recurso
-            //Quando for fazer o bundles, deve-se ter certeza que se pode misturar os arquivos, pois, pode acontecer de ter no javascript dois métodos com o mesmo nome e ao aplicar o bundles e o minification,
-                //voce não saberá qual deles está sendo chamado por questão com o mesmo nome
+            
+            //Quando for fazer o bundles, deve-se ter certeza que se pode misturar os arquivos, pois, pode acontecer de ter no javascript dois métodos com o mesmo nome e ao aplicar
+            //o bundles e o minification, voce não saberá qual deles está sendo chamado por questão com o mesmo nome
 
             //habilita a otimização
             //Com a minificação ativada, o nome de algumas variáveis podem ser alteradas para que o arquivo fique ainda menor

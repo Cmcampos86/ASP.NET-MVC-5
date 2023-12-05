@@ -14,7 +14,6 @@ namespace TesteMVC5.Data
         //O EF salva a migration (Histórico)
         //Cria uma hash para comprarar com as migrations anteriores
 
-
         public AppDbContext() : base("DefaultConnection")
         { 
         
