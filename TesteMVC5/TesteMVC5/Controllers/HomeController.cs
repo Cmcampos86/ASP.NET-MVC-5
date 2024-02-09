@@ -5,6 +5,7 @@ namespace TesteMVC5.Controllers
     public class HomeController : Controller
     {
         //ViewResult só pode retornar uma View
+        //PartialViewResult só pode retornar uma PartialView
         //ActionResult pode retornar qualquer coisa (Genérico)
 
         //Tudo o que for sem URL, vai cair nessa controller

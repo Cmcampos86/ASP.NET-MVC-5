@@ -2,7 +2,7 @@
 
 namespace TesteMVC5.Controllers
 {
-    //RoutePrefix: mantem o nome para todas as rotas e também pode acrescenter com o Route
+    //RoutePrefix: mantémm o nome para todas as rotas e também pode acrescenter com o Route
     [RoutePrefix("testes")]
     public class TesteController : Controller
     {
@@ -15,7 +15,9 @@ namespace TesteMVC5.Controllers
         //Passagem de parâmetro
         //O parâmetro não tem a ver com a variável da configuração da rota
         //Posso tipar a variável
-        //Se a variável estiver tipada e não for do tipo q estou passando, dá o erro 404
+        //Se a variável estiver tipada e não for do tipo que estou passando, dá o erro 404
+        //Pode usar a rota definida com querystring, desde que o parâmetro da querystring não esteja na rota
+
         //[Route("{id:int}")]
         //public ActionResult IndexTeste(int id)
         //{

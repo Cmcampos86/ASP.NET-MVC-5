@@ -7,11 +7,12 @@ namespace TesteMVC5.Models
     public class Aluno
     {
         [Key]
-        //O EF entende que o nome Id já é identificado com PK. Se estivier com outro nome, é necessário colocar o datanotation [Key] acima
+        //O EF entende que o nome Id já é identificado com PK. Se estiver com outro nome,
+        //é necessário colocar o datanotation [Key] acima
         public int Id { get; set; }
 
         //Colocar o {0} pega o valor da propriedade
-        [DisplayName("Nome Completo")]
+        [DisplayName("Nome Completo")] //Display Name: Dessa forma que aparece na View
         [Required(ErrorMessage = "O campo {0} é requerido")]
         [MaxLength(100, ErrorMessage ="No máximo 100 caracteres")]
         public string Nome { get; set; }

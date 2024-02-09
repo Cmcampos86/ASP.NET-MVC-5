@@ -17,13 +17,13 @@
         @* Mostra os erros de validação *@
         @* O valor true esconde os erros das propriedades e false não *@
         @* O segundo parâmetro pode receber uma mensagem para os erros *@
-        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" }) @* Mostra o erro ao lado caso exista *@
             </div>
         </div>
 
@@ -53,16 +53,17 @@
         <!-- Declaração de PartialView -->
         <!-- Se a partialView estiver dentro de uma pasta específica, vai funcionar só lá, mas se for
             global, deve estar na pastra Shared-->
-        <!-- A partial aceita Model -->
+        <!-- A partial aceita Model como parâmetro -->
 
         @Html.Partial("_SubmissaoForm")
     </div>
 }
 
+@* Declaração para trabalhar com scripts *@
 @section Scripts
 {
     @* jquery.validate: valido o formulário *@
-    @* Validar no javascript alivia o fato de fazer validação no servidor, mas a validação do backend tb deve ser feita *@
+    @* Validar no javascript alivia o fato de fazer validação no servidor, mas a validação do backend também deve ser feita *@
     @* O caminho bundles/jqueryval contem os script que são definidos no layout através do @RenderSection *@
 
     @Scripts.Render("~/bundles/jqueryval")

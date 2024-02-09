@@ -48,6 +48,8 @@ namespace TesteMVC5.Controllers
         [Route("novo-aluno")]
         public ActionResult NovoAluno(Aluno aluno)
         {
+            //ModelState: verifica se a model está válida mediante ao preenchimento correto das
+            //propriedades da classe
             if (!ModelState.IsValid) return View(aluno);
 
             aluno.DataMatricula = DateTime.Now;

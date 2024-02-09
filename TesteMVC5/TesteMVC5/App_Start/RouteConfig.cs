@@ -7,9 +7,10 @@ namespace TesteMVC5
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
+            //As rotas são chamadas dentro do Global.asax
             //Testa as rotas na ordem
             //A rota mais complexa deve ficar acima e a padrão fica por último
-            //As precisam ser diferentes
+            //Elas precisam ser diferentes
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
@@ -25,7 +26,7 @@ namespace TesteMVC5
             //    defaults: new { controller = "Teste", action = "IndexTeste", id = UrlParameter.Optional }
             //);
 
-            //Habilita as rotas por atributos
+            //Habilita as rotas por atributos (rotas em cima das controllers)
             routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
