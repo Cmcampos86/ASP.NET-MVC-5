@@ -5,7 +5,7 @@ namespace TesteMVC5.Controllers
     public class HomeController : Controller
     {
         //ViewResult só pode retornar uma View
-        //Action Result pode retornar qualquer coisa(Genérico)
+        //ActionResult pode retornar qualquer coisa (Genérico)
 
         //Tudo o que for sem URL, vai cair nessa controller
         [Route("")]
@@ -30,6 +30,7 @@ namespace TesteMVC5.Controllers
         [Route("content-result")]
         public ContentResult ContentResult()
         {
+            //ContentResult retorna uma string simples
             return Content("Olá!");
         }
 
@@ -46,7 +47,7 @@ namespace TesteMVC5.Controllers
             return new HttpUnauthorizedResult();
         }
 
-        //JsonRequestBehavior.AllowGet: permite que o asp.net retorne um json, pq no padr~~ao não é permitido
+        //JsonRequestBehavior.AllowGet: permite que o asp.net retorne um json, porque no padrão não é permitido
         public JsonResult JsonResult()
         {
             return Json("teste:'Teste'", JsonRequestBehavior.AllowGet);
@@ -60,7 +61,7 @@ namespace TesteMVC5.Controllers
 
         public RedirectToRouteResult RedirectToRouteResult()
         {
-            //Redirecionamento interno
+            //Redirecionamento interno e mais específico 
             //return RedirectToRoute(new
             //{
             //    controller = "Teste",
