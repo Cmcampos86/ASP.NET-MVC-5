@@ -21,8 +21,8 @@ namespace AppMvc.Controllers
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
         [HttpGet]
-        [AllowAnonymous]//AllowAnonymous trata a excessão do Autorize. Somente o index pode ser acessado.
-        [OutputCache(Duration = 60)] //Utilizado para persistir em cache a informação de acordo com o tempo (Duration). Essa funcionalidade é interessante para dados imutáveis.
+        //[AllowAnonymous]//AllowAnonymous trata a excessão do Autorize. Somente o index pode ser acessado.
+        //[OutputCache(Duration = 60)] //Utilizado para persistir em cache a informação de acordo com o tempo (Duration). Essa funcionalidade é interessante para dados imutáveis.
         [Route("listar-alunos")]
         public async Task<ActionResult> Index()
         {
