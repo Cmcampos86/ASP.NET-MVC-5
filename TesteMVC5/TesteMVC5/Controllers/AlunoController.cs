@@ -77,7 +77,7 @@ namespace TesteMVC5.Controllers
 
             var aluno = context.Alunos.FirstOrDefault(a => a.Nome == "CLAUDIO MARCOS DE CAMPOS");
 
-            aluno.Nome = "João";
+            aluno.Nome = "JOSÉ SILVA";
             var entry = context.Entry(aluno);//Configura o objeto de entrada que pode ou não exisitir
             context.Set<Aluno>().Attach(aluno); //Atacha o objeto no contexto
             entry.State = System.Data.Entity.EntityState.Modified; //Configura a entrada. Como existe, então é um estado modificado
@@ -91,12 +91,12 @@ namespace TesteMVC5.Controllers
 
         [HttpGet]
         [Route("excluir-aluno")]
-        public ActionResult ExluirAlunos()
+        public ActionResult ExcluirAlunos()
         {
             //Recupera o objeto
-            var aluno = context.Alunos.FirstOrDefault(a => a.Nome == "João");
+            var aluno = context.Alunos.FirstOrDefault(a => a.Nome == "JOSÉ SILVA");
 
-            context.Alunos.Remove(aluno); //Exclui passando o obejto, pois, ele já identifica os Id dentro do objeto para excluir
+            context.Alunos.Remove(aluno); //Exclui passando o objeto, pois, ele já identifica os Id dentro do objeto para excluir
 
             context.SaveChanges(); //Salva
 
@@ -104,6 +104,5 @@ namespace TesteMVC5.Controllers
 
             return View("NovoAluno", alunos.FirstOrDefault());
         }
-
     }
 }

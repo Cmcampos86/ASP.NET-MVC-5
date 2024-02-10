@@ -9,6 +9,7 @@ namespace TesteMVC5.Data
         //Instalar o EF 6
         //enable-migrations: verifica se a conection string aponta para uma base existente 
         //update-database: atualiza o banco
+        //-Force: força uma atualização, mas dados podem ser perdidos
         //-verbose: mostra mais informações durante o processamento
         //-Script: ele cria o script e voce aplica no banco
         //O EF salva a migration (Histórico)
