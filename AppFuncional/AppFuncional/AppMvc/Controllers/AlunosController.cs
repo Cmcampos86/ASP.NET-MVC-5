@@ -14,14 +14,14 @@ namespace AppMvc.Controllers
     //HandleError: Caputura todos os erros e possibilita a escolha de uma View para exibição de erros
 
     //Só vai permitir acesso quando for fazer o login
-    //O Authorize pode ser uzado em um método específico
+    //O Authorize pode ser usado em um método específico
     [Authorize]
     public class AlunosController : Controller
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
         [HttpGet]
-        [AllowAnonymous]//AllowAnonymous trata a excessão do Autorize
+        [AllowAnonymous]//AllowAnonymous trata a excessão do Autorize. Somente o index pode ser acessado.
         [OutputCache(Duration = 60)] //Utilizado para persistir em cache a informação de acordo com o tempo (Duration). Essa funcionalidade é interessante para dados imutáveis.
         [Route("listar-alunos")]
         public async Task<ActionResult> Index()
@@ -53,11 +53,12 @@ namespace AppMvc.Controllers
         [HttpPost]
         [Route("novo-aluno")]
         [HandleError(ExceptionType = typeof(NullReferenceException), View = "Erro")]//Se ocorrer algum erro específico(NullReferenceException como no exemplo), vai redirecionar para a view Erro (específica)
-        [ValidateInput(false)]//Se injetar um javascript perigoso, ele vai aceitar. Por padrão o asp.net proteje por padrão os scripts perigosos
+        [ValidateInput(false)]//Se injetar um javascript perigoso, ele vai aceitar. Por padrão o asp.net proteje os scripts perigosos
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,Nome,Email,CPF,Descricao,Ativo")] Aluno aluno)
         {
-            //O Bind acima permite configurar as propriedades que voce quer que apareça. Se voce quer qur outros campos apareçam, precisa adicionar no Bind
+            //O Bind acima permite configurar as propriedades que você quer que apareça. Se voce quer que outros campos apareçam, precisa adicionar no Bind
+            //Não é muito aconselhável usar Bind porque é muito verboso
             if (ModelState.IsValid)
             {
                 aluno.DataMatricula = DateTime.Now;
@@ -65,6 +66,7 @@ namespace AppMvc.Controllers
                 await db.SaveChangesAsync();
 
                 //TempData: persiste a informação quando ocorre um redirect ou request. Ela finaliza quando é lida
+                //Exemplo da mensagem cadastrada com sucesso. Ela some depois de lida.
 
                 TempData["Mensagem"] = "Aluno cadastrado com sucesso";
 
@@ -86,7 +88,7 @@ namespace AppMvc.Controllers
             }
 
             //ViewBag: Passa uma informação de uma controller para uma View
-            ViewBag.Mensagem = "Não esqueça de  esta ação é irreversível";
+            ViewBag.Mensagem = "Não esqueça de esta ação é irreversível";
 
             return View(aluno);
         }
