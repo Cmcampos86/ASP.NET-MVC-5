@@ -12,8 +12,7 @@ namespace DevIO.Infra.Data.Repository
 {
     //Repository Genérico
     //Alguns métodos são virtual para ter a oportunidade de sobrescrever caso necessário
-    //O Repository faz o que a interface implementou
-    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
     {
         protected readonly MeuDbContext Db;
         protected readonly DbSet<TEntity> DbSet;
