@@ -1,4 +1,5 @@
-﻿using DevIO.Business.Core.Services;
+﻿using DevIO.Business.Core.Notificacoes;
+using DevIO.Business.Core.Services;
 using DevIO.Business.Model.Fornecedores.Validations;
 using System;
 using System.Linq;
@@ -11,7 +12,9 @@ namespace DevIO.Business.Model.Fornecedores.Services
         private readonly IFornecedorRepository _fornecedorRepository;
         private readonly IEnderecoRepository _enderecoRepository;
 
-        public FornecedorService(IFornecedorRepository fornecedorRepository, IEnderecoRepository enderecoRepository)
+        public FornecedorService(IFornecedorRepository fornecedorRepository,
+                                 IEnderecoRepository enderecoRepository,
+                                 INotificador notificador) : base(notificador) //Necessário colocar o base, pois, ele herda da BaseService e nela já tem o método construtor que chama o INotificador.
         {
             _fornecedorRepository = fornecedorRepository;
             _enderecoRepository = enderecoRepository;
@@ -41,7 +44,11 @@ namespace DevIO.Business.Model.Fornecedores.Services
         {
             var fornecedor = await _fornecedorRepository.ObterFornecedorProdutosEndereco(id);
 
-            if (fornecedor.Produtos.Any()) return;
+            if (fornecedor.Produtos.Any())
+            {
+                Notificar("O fornecedor possui produtos cadastrados!");
+                return;
+            }
 
             if (fornecedor.Endereco != null)
             {
@@ -62,7 +69,10 @@ namespace DevIO.Business.Model.Fornecedores.Services
         {
             var fornecedorAtual = await _fornecedorRepository.Buscar(f => f.Documento == fornecedor.Documento && f.Id != fornecedor.Id);
 
-            return fornecedorAtual.Any();
+            if (!fornecedorAtual.Any()) return false;
+            
+            Notificar("Já existe um fornecedor com este documento informado.");
+            return true;
         }
 
         public void Dispose()
