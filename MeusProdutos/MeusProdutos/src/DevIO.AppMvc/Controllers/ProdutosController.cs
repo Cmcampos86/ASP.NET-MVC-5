@@ -15,9 +15,18 @@ namespace DevIO.AppMvc.Controllers
         private readonly IProdutoService _produtoService;
         private readonly IMapper _mapper;
 
-        public ProdutosController()
+        public ProdutosController(IProdutoRepository produtoRepository,
+                                  IProdutoService produtoService,
+                                  IMapper mapper)
         {
+            //Injeção de dependência: Se você quer usar a instância de um objeto dentro de outro objeto, vc que já dê a instância pronta
+            //.net core já tem injeção de dependencia nativo
+            //Quando a controller é chamada, ela ainda não sab quem são so parmaetros do método construtor. Dessa forma, será usado o SimpleInjector para inserir a
+            //injeção de dependencia
 
+            _produtoRepository = produtoRepository;
+            _produtoService = produtoService;
+            _mapper = mapper;
         }
 
         [Route("lista-de-produtos")]
