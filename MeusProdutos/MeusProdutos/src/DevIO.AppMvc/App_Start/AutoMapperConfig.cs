@@ -33,9 +33,8 @@ namespace DevIO.AppMvc.App_Start
             //ReverseMap() mapeamento vice-versa
 
             CreateMap<Fornecedor, FornecedorViewModel>().ReverseMap();
-            CreateMap<Endereco, FornecedorViewModel>().ReverseMap();
+            CreateMap<Endereco, EnderecoViewModel>().ReverseMap();
             CreateMap<Produto, ProdutoViewModel>().ReverseMap();
-
         }
     }
 }
