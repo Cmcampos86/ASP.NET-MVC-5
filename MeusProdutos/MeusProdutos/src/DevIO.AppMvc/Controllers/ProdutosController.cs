@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using AutoMapper;
 using DevIO.AppMvc.ViewModels;
 using DevIO.Business.Model.Produtos;
 using DevIO.Business.Model.Produtos.Services;
-using AutoMapper;
-using System.Collections.Generic;
 
 namespace DevIO.AppMvc.Controllers
 {
@@ -15,15 +15,10 @@ namespace DevIO.AppMvc.Controllers
         private readonly IProdutoService _produtoService;
         private readonly IMapper _mapper;
 
-        public ProdutosController(IProdutoRepository produtoRepository,
-                                  IProdutoService produtoService,
+        public ProdutosController(IProdutoRepository produtoRepository, 
+                                  IProdutoService produtoService, 
                                   IMapper mapper)
         {
-            //Injeção de dependência: Se você quer usar a instância de um objeto dentro de outro objeto, vc que já dê a instância pronta
-            //.net core já tem injeção de dependencia nativo
-            //Quando a controller é chamada, ela ainda não sab quem são so parmaetros do método construtor. Dessa forma, será usado o SimpleInjector para inserir a
-            //injeção de dependencia
-
             _produtoRepository = produtoRepository;
             _produtoService = produtoService;
             _mapper = mapper;
@@ -33,7 +28,7 @@ namespace DevIO.AppMvc.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            return View(_mapper.Map<IEnumerable<ProdutoViewModel>>(await _produtoRepository.ObterProdutosFornecedores()));
+            return View(_mapper.Map<IEnumerable<ProdutoViewModel>>(await _produtoRepository.ObterTodos()));
         }
 
         [Route("dados-do-produto/{id:guid}")]
@@ -73,7 +68,7 @@ namespace DevIO.AppMvc.Controllers
         }
 
         [Route("editar-produto/{id:guid}")]
-        [HttpGet] //Quando não esta definido, ele não necessariamente é um get e sim pode ser qualquer coisa. A susgestão é incluir o que ele é
+        [HttpGet]
         public async Task<ActionResult> Edit(Guid id)
         {
             var produtoViewModel = await ObterProduto(id);
@@ -100,6 +95,7 @@ namespace DevIO.AppMvc.Controllers
 
             return View(produtoViewModel);
         }
+
 
         [Route("excluir-produto/{id:guid}")]
         [HttpGet]
