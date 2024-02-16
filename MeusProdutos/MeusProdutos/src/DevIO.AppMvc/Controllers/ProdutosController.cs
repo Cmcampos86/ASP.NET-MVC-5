@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using DevIO.AppMvc.ViewModels;
@@ -63,14 +65,19 @@ namespace DevIO.AppMvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ProdutoViewModel produtoViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                await _produtoService.Adicionar(_mapper.Map<Produto>(produtoViewModel));
+            produtoViewModel = await PopularFornecedores(produtoViewModel);
+            if (!ModelState.IsValid) return View(produtoViewModel);
 
-                return RedirectToAction("Index");
+            var imgPrefixo = Guid.NewGuid() + "_";
+            if (!UploadImagem(produtoViewModel.ImagemUpload, imgPrefixo))
+            {
+                return View(produtoViewModel);
             }
 
-            return View(produtoViewModel);
+            produtoViewModel.Imagem = imgPrefixo + produtoViewModel.ImagemUpload.FileName;
+            await _produtoService.Adicionar(_mapper.Map<Produto>(produtoViewModel));
+
+            return RedirectToAction("Index");
         }
 
         [Route("editar-produto/{id:guid}")]
@@ -92,14 +99,32 @@ namespace DevIO.AppMvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ProdutoViewModel produtoViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                await _produtoService.Atualizar(_mapper.Map<Produto>(produtoViewModel));
+            if (!ModelState.IsValid) return View(produtoViewModel);
 
-                return RedirectToAction("Index");
+            var produtoAtualizacao = await ObterProduto(produtoViewModel.Id);
+            produtoViewModel.Imagem = produtoAtualizacao.Imagem;
+
+            if (produtoViewModel.ImagemUpload != null)
+            {
+                var imgPrefixo = Guid.NewGuid() + "_";
+                if (!UploadImagem(produtoViewModel.ImagemUpload, imgPrefixo))
+                {
+                    return View(produtoViewModel);
+                }
+
+                produtoAtualizacao.Imagem = imgPrefixo + produtoViewModel.ImagemUpload.FileName;
             }
 
-            return View(produtoViewModel);
+            produtoAtualizacao.Nome = produtoViewModel.Nome;
+            produtoAtualizacao.Descricao = produtoViewModel.Descricao;
+            produtoAtualizacao.Valor = produtoViewModel.Valor;
+            produtoAtualizacao.Ativo = produtoViewModel.Ativo;
+            produtoAtualizacao.FornecedorId = produtoViewModel.FornecedorId;
+            produtoAtualizacao.Fornecedor = produtoViewModel.Fornecedor;
+
+            await _produtoService.Atualizar(_mapper.Map<Produto>(produtoAtualizacao));
+
+            return RedirectToAction("Index");
         }
 
 
@@ -145,6 +170,26 @@ namespace DevIO.AppMvc.Controllers
         {
             produto.Fornecedores = _mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos());
             return produto;
+        }
+
+        private bool UploadImagem(HttpPostedFileBase img, string imgPrefixo)
+        {
+            if (img == null || img.ContentLength <= 0)
+            {
+                ModelState.AddModelError(string.Empty, "Imagem em formato inválido!");
+                return false;
+            }
+
+            var path = Path.Combine(HttpContext.Server.MapPath("~/imagens"), imgPrefixo + img.FileName);
+
+            if (System.IO.File.Exists(path))
+            {
+                ModelState.AddModelError(string.Empty, "Já existe um arquivo com este nome!");
+                return false;
+            }
+
+            img.SaveAs(path);
+            return true;
         }
 
         protected override void Dispose(bool disposing)

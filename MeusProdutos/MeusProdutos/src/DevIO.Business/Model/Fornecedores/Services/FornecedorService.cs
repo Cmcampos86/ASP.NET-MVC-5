@@ -23,6 +23,11 @@ namespace DevIO.Business.Model.Fornecedores.Services
         //Trabalha com o fluxo de negócio: Repositório, validações e etc
         public async Task Adicionar(Fornecedor fornecedor)
         {
+            // Limitações do EF 6 fora da convenção
+            //Igualar os Id do endereço devido ao relacionamento 1x1
+            fornecedor.Endereco.Id = fornecedor.Id;
+            fornecedor.Endereco.Fornecedor = fornecedor;
+
             if (!ExecutarValidacao(new FornecedorValidation(), fornecedor)
                 || !ExecutarValidacao(new EnderecoValidation(), fornecedor.Endereco)) return;
 
