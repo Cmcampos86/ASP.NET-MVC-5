@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevIO.AppMvc.Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -42,7 +43,7 @@ namespace DevIO.AppMvc.ViewModels
 
         public string Imagem { get; set; }
 
-        //[Moeda]
+        [Moeda]//Criação de Data Notation na classe MoedaAttribute para formatar o valor do lado do .net
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public decimal Valor { get; set; }
 

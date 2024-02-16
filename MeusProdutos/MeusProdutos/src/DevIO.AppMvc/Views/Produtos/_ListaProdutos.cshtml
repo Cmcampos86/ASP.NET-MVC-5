@@ -35,7 +35,7 @@
                     @Html.DisplayFor(modelItem => item.Fornecedor.Nome)
                 </td>
                 <td>
-                    @item.Valor.ToString("C")
+                    @item.Valor.ToString("C")@*Formato moeda, mas pega a culture do servidor*@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Ativo)

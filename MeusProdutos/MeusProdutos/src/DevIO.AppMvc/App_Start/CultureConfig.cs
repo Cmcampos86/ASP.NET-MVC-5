@@ -6,9 +6,10 @@ namespace DevIO.AppMvc
     {
         public static void RegisterCulture()
         {
-            var culture = new CultureInfo("pt-BR");
+            //Configuração de cultura
+            var culture = new CultureInfo("pt-BR"); //Cultura Brasil
             CultureInfo.DefaultThreadCurrentCulture = culture;
-            CultureInfo.CurrentCulture = culture;
+            CultureInfo.CurrentCulture = culture; 
             CultureInfo.CurrentUICulture = culture;
         }
     }

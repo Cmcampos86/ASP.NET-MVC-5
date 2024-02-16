@@ -7,7 +7,7 @@
 <h2>@ViewBag.Title </h2>
 <hr />
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Produtos", FormMethod.Post, new { enctype = "multipart/form-data", id = "produtoForm" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -76,5 +76,16 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        //Formata o valor
+        $('#produtoForm').submit(function () {
+            const valor = $('#Valor').val();
+            $('#Valor').val(valor.replace(".", ""));
+        });
 
+        $("#Valor").attr("data-val-number", "Moeda em formato inválido");
+
+        $("#ImagemNome").attr("data-val", "true");
+        $("#ImagemNome").attr("data-val-required", "Preencha o campo Imagem");
+    </script>
 }
