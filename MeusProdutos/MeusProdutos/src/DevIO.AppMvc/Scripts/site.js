@@ -86,3 +86,25 @@ function SetModal() {
         });
     });
 }
+
+function bindForm(dialog) {
+    $('form', dialog).submit(function () {
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
+                if (result.success) {
+                    $('#myModal').modal('hide'); //esconde modal
+                    $('#EnderecoTarget').load(result.url); // Carrega o resultado HTML para a div demarcada emd Edit.cshtml. O result.url vai vir da controller
+                } else {
+                    $('#myModalContent').html(result);
+                    bindForm(dialog);
+                }
+            }
+        });
+
+        SetModal();//Infomado o SetModal para começar uma nova ação
+        return false;
+    });
+}

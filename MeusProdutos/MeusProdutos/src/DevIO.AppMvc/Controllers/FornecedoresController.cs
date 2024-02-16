@@ -151,6 +151,20 @@ namespace DevIO.AppMvc.Controllers
             return RedirectToAction("Index");
         }
 
+        //Método que vai fazer a atualização do grid de endereços na tela quando atualizar pelo modal
+        [Route("obter-endereco-fornecedor/{id:guid}")]
+        public async Task<ActionResult> ObterEndereco(Guid id)
+        {
+            var fornecedor = await ObterFornecedorEndereco(id);
+
+            if (fornecedor == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView("_DetalhesEndereco", fornecedor);
+        }
+
         [Route("atualizar-endereco-fornecedor/{id:guid}")]
         [HttpGet]
         public async Task<ActionResult> AtualizarEndereco(Guid id)
@@ -170,6 +184,7 @@ namespace DevIO.AppMvc.Controllers
         [HttpPost]
         public async Task<ActionResult> AtualizarEndereco(FornecedorViewModel fornecedorViewModel)
         {
+            //Remove a propiedade afim de não validar no ModelState
             ModelState.Remove("Nome");
             ModelState.Remove("Documento");
 
@@ -177,6 +192,7 @@ namespace DevIO.AppMvc.Controllers
 
             await _fornecedorService.AtualizarEndereco(_mapper.Map<Endereco>(fornecedorViewModel.Endereco));
 
+            //A chamada da url dentro do json quem vai fazer é o javascript para renderizar apenas o grid de endereço
             var url = Url.Action("ObterEndereco", "Fornecedores", new { id = fornecedorViewModel.Endereco.FornecedorId });
             return Json(new { success = true, url });
         }
