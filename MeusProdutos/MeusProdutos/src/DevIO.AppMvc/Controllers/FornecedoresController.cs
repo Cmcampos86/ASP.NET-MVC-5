@@ -10,6 +10,8 @@ using System.Web.Mvc;
 
 namespace DevIO.AppMvc.Controllers
 {
+    //Tem que estar logado para acessar todos os métodos da controller
+    [Authorize]
     public class FornecedoresController : BaseController
     {
         #region Teste
@@ -63,6 +65,7 @@ namespace DevIO.AppMvc.Controllers
             _fornecedorService = fornecedorService;
         }
 
+        [AllowAnonymous] //Permite que o usuário acesse esse método
         [Route("lista-de-fornecedores")]
         public async Task<ActionResult> Index()
         {
@@ -129,6 +132,10 @@ namespace DevIO.AppMvc.Controllers
             return RedirectToAction("Index");
         }
 
+        //Acesso por perfis. Se for mais de um, pode separar por vírgula
+        //Usar a tabela AspNetRoles para criar o perfil e vincular a tabela AspNetUserRoles
+        //As roles são para cenários de permissão simples
+        [Authorize(Roles = "Admin")]
         [Route("excluir-fornecedor/{id:guid}")]
         public async Task<ActionResult> Delete(Guid id)
         {
@@ -142,6 +149,7 @@ namespace DevIO.AppMvc.Controllers
             return View(fornecedorViewModel);
         }
 
+        [Authorize(Roles = "Admin")] //Acesso por perfis. Se for mais de um, pode separar por vírgula
         [Route("excluir-fornecedor/{id:guid}")]
         [HttpPost, ActionName("Delete")]
         public async Task<ActionResult> DeleteConfirmed(Guid id)
