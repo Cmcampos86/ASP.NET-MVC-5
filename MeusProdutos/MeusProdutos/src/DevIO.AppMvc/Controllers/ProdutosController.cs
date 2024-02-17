@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using DevIO.AppMvc.ViewModels;
+using DevIO.Business.Core.Notificacoes;
 using DevIO.Business.Model.Fornecedores;
 using DevIO.Business.Model.Produtos;
 using DevIO.Business.Model.Produtos.Services;
@@ -22,7 +23,8 @@ namespace DevIO.AppMvc.Controllers
         public ProdutosController(IProdutoRepository produtoRepository, 
                                   IProdutoService produtoService,
                                   IFornecedorRepository fornecedorRepository,
-                                  IMapper mapper)
+                                  IMapper mapper,
+                                  INotificador notificador) : base(notificador)
         {
             _produtoRepository = produtoRepository;
             _produtoService = produtoService;
