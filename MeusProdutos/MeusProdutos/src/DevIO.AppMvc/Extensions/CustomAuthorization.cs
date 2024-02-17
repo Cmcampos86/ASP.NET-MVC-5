@@ -10,9 +10,10 @@ namespace DevIO.AppMvc.Extensions
     {
         public static bool ValidarClaimsUsuario(string claimName, string claimValue)
         {
-            var identity = (ClaimsIdentity)HttpContext.Current.User.Identity;
-            var claim = identity.Claims.FirstOrDefault(c => c.Type == claimName);
-            return claim != null && claim.Value.Contains(claimValue);
+            //As claims e as roles ficam nos cookies
+            var identity = (ClaimsIdentity)HttpContext.Current.User.Identity;//Pega as claims do usuário logado
+            var claim = identity.Claims.FirstOrDefault(c => c.Type == claimName);//Possui a claim com o nome passado
+            return claim != null && claim.Value.Contains(claimValue);//Se achou a claim retorna true
         }
     }
 
@@ -27,6 +28,7 @@ namespace DevIO.AppMvc.Extensions
             _claimValue = claimValue;
         }
 
+        //Manipular requests não autorizado
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             if (filterContext.HttpContext.Request.IsAuthenticated)

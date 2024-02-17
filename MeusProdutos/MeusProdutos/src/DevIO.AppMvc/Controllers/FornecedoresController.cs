@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DevIO.AppMvc.Extensions;
 using DevIO.AppMvc.ViewModels;
 using DevIO.Business.Core.Notificacoes;
 using DevIO.Business.Model.Fornecedores;
@@ -72,6 +73,7 @@ namespace DevIO.AppMvc.Controllers
             return View(_mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos()));
         }
 
+        [AllowAnonymous] //Permite que o usuário acesse esse método
         [Route("dados-do-fornecedor/{id:guid}")]
         public async Task<ActionResult> Details(Guid id)
         {
@@ -85,12 +87,17 @@ namespace DevIO.AppMvc.Controllers
             return View(fornecedorViewModel);
         }
 
+        //Cadastrar a claim na tabela AspNetUserClaims passando o idUser, a claimName e a claimValue
+        //Na claimValue eu posso passar mais de valor separado por vírgula
+        //Cuidado para não exagerar no ClaimValue, pois, ele é registrado no Cookie que pode estourar
+        [ClaimsAuthorize("Fornecedor", "Adicionar")]
         [Route("novo-fornecedor")]
         public ActionResult Create()
         {
             return View();
         }
 
+        [ClaimsAuthorize("Fornecedor", "Adicionar")]
         [Route("novo-fornecedor")]
         [HttpPost]
         public async Task<ActionResult> Create(FornecedorViewModel fornecedorViewModel)
@@ -135,7 +142,8 @@ namespace DevIO.AppMvc.Controllers
         //Acesso por perfis. Se for mais de um, pode separar por vírgula
         //Usar a tabela AspNetRoles para criar o perfil e vincular a tabela AspNetUserRoles
         //As roles são para cenários de permissão simples
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
+        [ClaimsAuthorize("Fornecedor", "Excluir")]
         [Route("excluir-fornecedor/{id:guid}")]
         public async Task<ActionResult> Delete(Guid id)
         {
@@ -149,7 +157,8 @@ namespace DevIO.AppMvc.Controllers
             return View(fornecedorViewModel);
         }
 
-        [Authorize(Roles = "Admin")] //Acesso por perfis. Se for mais de um, pode separar por vírgula
+        //[Authorize(Roles = "Admin")] //Acesso por perfis. Se for mais de um, pode separar por vírgula
+        [ClaimsAuthorize("Fornecedor", "Excluir")]
         [Route("excluir-fornecedor/{id:guid}")]
         [HttpPost, ActionName("Delete")]
         public async Task<ActionResult> DeleteConfirmed(Guid id)
